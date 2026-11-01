@@ -35,6 +35,7 @@
 @property int          policyCallback ;
 @property int          sslCallback ;
 @property BOOL         allowNewWindows ;
+@property BOOL         allowScriptClose ;
 @property BOOL         examineInvalidCertificates ;
 @property WKNavigation *trackingID ;
 @end

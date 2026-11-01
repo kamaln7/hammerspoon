@@ -285,6 +285,7 @@ void delayUntilViewStopsLoading(HSWebViewView *theView, dispatch_block_t block) 
         _policyCallback           = LUA_NOREF ;
         _sslCallback              = LUA_NOREF ;
         _allowNewWindows          = YES ;
+        _allowScriptClose         = YES ;
         _examineInvalidCertificates = NO ;
     }
     return self;
@@ -600,6 +601,7 @@ void delayUntilViewStopsLoading(HSWebViewView *theView, dispatch_block_t block) 
         newWindow.contentView = newView;
 
         newView.allowNewWindows                     = ((HSWebViewView *)theView).allowNewWindows ;
+        newView.allowScriptClose                    = ((HSWebViewView *)theView).allowScriptClose ;
         newView.allowsMagnification                 = theView.allowsMagnification ;
         newView.allowsBackForwardNavigationGestures = theView.allowsBackForwardNavigationGestures ;
         [newView setValue:@(newWindow.opaque) forKey:@"drawsTransparentBackground"];
@@ -717,7 +719,14 @@ void delayUntilViewStopsLoading(HSWebViewView *theView, dispatch_block_t block) 
     }
 }
 
-// - (void)webViewDidClose:(WKWebView *)webView ;
+- (void)webViewDidClose:(WKWebView *)theView {
+    if (!((HSWebViewView *)theView).allowScriptClose) return ;
+
+    // deferred so a deleteOnClose webview isn't deleted while WebKit is still handling the close request
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [theView.window performClose:nil] ;
+    }) ;
+}
 
 #pragma mark -- Helper methods to reduce code replication
 
@@ -1317,6 +1326,35 @@ static int webview_allowNewWindows(lua_State *L) {
         lua_pushboolean(L, theView.allowNewWindows) ;
     } else {
         theView.allowNewWindows = (BOOL)lua_toboolean(L, 2) ;
+        lua_settop(L, 1) ;
+    }
+    return 1 ;
+}
+
+/// hs.webview:allowScriptClose([value]) -> webviewObject | current value
+/// Method
+/// Get or set whether or not JavaScript in the webview is allowed to close the webview's window with `window.close()`.  Defaults to true.
+///
+/// Parameters:
+///  * `value` - an optional boolean value indicating whether or not the webview should allow its window to be closed by JavaScript.
+///
+/// Returns:
+///  * If a value is provided, then this method returns the webview object; otherwise the current value
+///
+/// Notes:
+///  * As in a regular browser, `window.close()` only works for windows opened by script or for pages with a single history entry.
+///  * The window is closed as if the user had clicked its close button, so its style must include "closable" (see [hs.webview:windowStyle](#windowStyle)), the [hs.webview:windowCallback](#windowCallback) function receives the "closing" action, and the webview is deleted if [hs.webview:deleteOnClose](#deleteOnClose) is true.
+///  * Windows opened by the webview from JavaScript (see [hs.webview:allowNewWindows](#allowNewWindows)) inherit this setting.
+static int webview_allowScriptClose(lua_State *L) {
+    LuaSkin *skin = [LuaSkin sharedWithState:L] ;
+    [skin checkArgs:LS_TUSERDATA, USERDATA_TAG, LS_TBOOLEAN | LS_TOPTIONAL, LS_TBREAK] ;
+    HSWebViewWindow *theWindow = get_objectFromUserdata(__bridge HSWebViewWindow, L, 1, USERDATA_TAG) ;
+    HSWebViewView   *theView = theWindow.contentView ;
+
+    if (lua_type(L, 2) == LUA_TNONE) {
+        lua_pushboolean(L, theView.allowScriptClose) ;
+    } else {
+        theView.allowScriptClose = (BOOL)lua_toboolean(L, 2) ;
         lua_settop(L, 1) ;
     }
     return 1 ;
@@ -3121,6 +3159,7 @@ static const luaL_Reg userdata_metaLib[] = {
     {"magnification",              webview_magnification},
     {"allowMagnificationGestures", webview_allowMagnificationGestures},
     {"allowNewWindows",            webview_allowNewWindows},
+    {"allowScriptClose",           webview_allowScriptClose},
     {"allowNavigationGestures",    webview_allowNavigationGestures},
     {"isOnlySecureContent",        webview_isOnlySecureContent},
     {"estimatedProgress",          webview_estimatedProgress},

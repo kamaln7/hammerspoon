@@ -19,6 +19,8 @@
 		22652B3E251C3914000FF14D /* IOHIDEventTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22652B3C251C3914000FF14D /* IOHIDEventTypes.h */; };
 		22738935248606F0003EBC68 /* HSwebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 22738934248606F0003EBC68 /* HSwebsocket.m */; };
 		2273893624860C0E003EBC68 /* test_websocket.lua in Resources */ = {isa = PBXBuildFile; fileRef = 22738933248606A9003EBC68 /* test_websocket.lua */; };
+		0034810580FD67AC1C057153 /* HSwebview.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E676807C8F0F83C50ADCD7 /* HSwebview.m */; };
+		C4A96C170111B53254C8CDCE /* test_webview.lua in Resources */ = {isa = PBXBuildFile; fileRef = B73249481868DE38048679D2 /* test_webview.lua */; };
 		22A6626025FC080200AA329E /* test_serial.lua in Resources */ = {isa = PBXBuildFile; fileRef = 22A6625F25FC07F700AA329E /* test_serial.lua */; };
 		22A6626225FC087000AA329E /* HSserial.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A6626125FC087000AA329E /* HSserial.m */; };
 		22C9153327A108F000E650A2 /* LuaSkin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB852342735B02400462DD0 /* LuaSkin.framework */; };
@@ -1605,6 +1607,8 @@
 		22652B3C251C3914000FF14D /* IOHIDEventTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOHIDEventTypes.h; path = extensions/eventtap/IOHIDEventTypes.h; sourceTree = "<group>"; };
 		22738933248606A9003EBC68 /* test_websocket.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test_websocket.lua; path = extensions/websocket/test_websocket.lua; sourceTree = "<group>"; };
 		22738934248606F0003EBC68 /* HSwebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSwebsocket.m; sourceTree = "<group>"; };
+		B73249481868DE38048679D2 /* test_webview.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test_webview.lua; path = extensions/webview/test_webview.lua; sourceTree = "<group>"; };
+		F5E676807C8F0F83C50ADCD7 /* HSwebview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSwebview.m; sourceTree = "<group>"; };
 		22A6625F25FC07F700AA329E /* test_serial.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test_serial.lua; path = extensions/serial/test_serial.lua; sourceTree = "<group>"; };
 		22A6626125FC087000AA329E /* HSserial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSserial.m; sourceTree = "<group>"; };
 		22C9154327A108F000E650A2 /* librazer.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = librazer.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4231,6 +4235,7 @@
 				4F6CE1331C6B93E10016668E /* HStimer.m */,
 				4C8F8CB21CC38B7E00F72CE5 /* HSuielement.m */,
 				22738934248606F0003EBC68 /* HSwebsocket.m */,
+				F5E676807C8F0F83C50ADCD7 /* HSwebview.m */,
 				4F8779D0200CD51200E9DB42 /* HSwindow.m */,
 				4FDD8E7B1C85A05700085D7A /* lsunit.lua */,
 				D02F95261A00221C00E28BB2 /* Supporting Files */,
@@ -4277,6 +4282,7 @@
 				D63FBD911D1CFB4E005255DD /* libwebview_toolbar.m */,
 				D64B03381BA954660006C468 /* libwebview_usercontent.m */,
 				D64B03361BA9541E0006C468 /* webview.h */,
+				B73249481868DE38048679D2 /* test_webview.lua */,
 			);
 			name = webview;
 			sourceTree = "<group>";
@@ -7021,6 +7027,7 @@
 				CE139CB128B24DAC00743C90 /* http.lua in Resources */,
 				4F7BB9D426447C390077A926 /* test_hotkey.lua in Resources */,
 				2273893624860C0E003EBC68 /* test_websocket.lua in Resources */,
+				C4A96C170111B53254C8CDCE /* test_webview.lua in Resources */,
 				4FCBAFD923B1152F007BA1D0 /* test_math.lua in Resources */,
 				4FDD8E4A1C6E4FA100085D7A /* test_screen.lua in Resources */,
 				6AE181341D39C9570097211C /* test_noises.lua in Resources */,
@@ -7833,6 +7840,7 @@
 				4FEF4D4F1C5FA01100E3B939 /* HSaudiodevice.m in Sources */,
 				4CEDEE1C1C640D11005CBF97 /* HSosascript.m in Sources */,
 				22738935248606F0003EBC68 /* HSwebsocket.m in Sources */,
+				0034810580FD67AC1C057153 /* HSwebview.m in Sources */,
 				4F40EC401CCD0FE3006342D7 /* HSdistributednotifications.m in Sources */,
 				4FB74B3B2049A9A600B08851 /* HStask.m in Sources */,
 				4FDD8E891C8AE3ED00085D7A /* HSTestCase.m in Sources */,
